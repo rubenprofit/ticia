@@ -1,4 +1,5 @@
 .PHONY: compose start
+
 compose:
 	@echo "composing docker image..."
 	docker-compose up -d

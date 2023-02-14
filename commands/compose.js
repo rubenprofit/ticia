@@ -10,12 +10,12 @@ const openai = new OpenAIApi(configuration);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("chat")
-    .setDescription("Chat with AI")
+    .setName("compose")
+    .setDescription("Compose an image from a text prompt.")
     .addStringOption((option) =>
       option
         .setName("prompt")
-        .setDescription("Talk to me.")
+        .setDescription("What should I draw?.")
         .setRequired(true)
         .setMaxLength(2000)
     ),
@@ -24,14 +24,14 @@ module.exports = {
     const prompt = interaction.options.getString("prompt");
 
     try {
-      const response = await openai.createCompletion({
-        max_tokens: 146,
-        model: "text-davinci-003",
+      const response = await openai.createImage({
+        n: 1,
         prompt,
-        temperature: Math.round(Math.random() * 10) / 10,
+        response_format: "url",
+        size: "512x512",
       });
 
-      await interaction.editReply(response.data.choices[0].text);
+      await interaction.editReply(response.data.data[0].url);
     } catch (error) {
       console.error(`${error.message}:\n`, error);
 

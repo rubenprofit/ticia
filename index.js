@@ -10,7 +10,7 @@ for (const command of commands) {
 }
 
 client.on(Events.InteractionCreate, async (interaction) => {
-  console.log(`Interaction ${interaction.id} from ${interaction.user.username}.`);
+  console.log(`${interaction.user.username} triggered the ${interaction.commandName} command on ${new Date().toLocaleString()}.`);
 
   if (!interaction.isChatInputCommand()) return;
 
